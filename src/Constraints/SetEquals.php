@@ -42,7 +42,15 @@ final class SetEquals extends Constraint
      */
     protected function matches($other): bool
     {
-        return $other == $this->expectedSet;
+        $left = $this->expectedSet;
+        sort($left);
+        $left = array_values($left);
+
+        $right = $other;
+        sort($right);
+        $right = array_values($right);
+
+        return $left == $right;
     }
 
     /**

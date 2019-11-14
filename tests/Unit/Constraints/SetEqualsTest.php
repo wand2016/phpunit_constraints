@@ -35,6 +35,11 @@ class SetEqualsTest extends TestCase
         $this->assertTrue($this->sut->evaluate([1, 2, 3], '', true));
     }
 
+    public function testConstraintSetEquals_equality_not_the_same_order(): void
+    {
+        $this->assertTrue($this->sut->evaluate([2, 3, 1], '', true));
+    }
+
     public function testConstraintSetEquals_inequality(): void
     {
         $this->assertFalse($this->sut->evaluate([0, 2, 3], '', true));
