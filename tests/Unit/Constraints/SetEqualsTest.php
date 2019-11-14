@@ -15,6 +15,12 @@ class SetEqualsTest extends TestCase
         $this->assertTrue($constraint->evaluate([1, 2, 3], '', true));
     }
 
+    public function testConstraintSetEquals_inequality(): void
+    {
+        $constraint = new SetEquals([1, 2, 3]);
+        $this->assertFalse($constraint->evaluate([0, 2, 3], '', true));
+    }
+
     public function testConstraintSetEquals_count_is_one(): void
     {
         $constraint = new SetEquals([1, 2, 3]);
