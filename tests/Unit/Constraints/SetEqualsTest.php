@@ -20,6 +20,16 @@ class SetEqualsTest extends TestCase
         $this->sut = new SetEquals([1, 2, 3]);
     }
 
+    /**
+     * @expectedException
+     */
+    public function testConstraintSetEquals_construct_with_not_set(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $sut = new SetEquals([1,1,3]);
+        $this->fail('element duplication');
+    }
+
     public function testConstraintSetEquals_equality(): void
     {
         $this->assertTrue($this->sut->evaluate([1, 2, 3], '', true));

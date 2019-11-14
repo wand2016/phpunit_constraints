@@ -16,10 +16,14 @@ class SetEquals extends Constraint
 
     /**
      * @param array $expectedSet
-     * @todo 重複チェック
+     * @throws \InvalidArgumentException when elements duplicates.
      */
     public function __construct(array $expectedSet)
     {
+        $uniqued = array_unique($expectedSet);
+        if (count($expectedSet) !== count($uniqued)) {
+            throw new \InvalidArgumentException('Set cannot have duplicated elements.');
+        }
         $this->expectedSet = $expectedSet;
     }
 
