@@ -7,18 +7,18 @@ namespace WandTa\Constraints;
 use PHPUnit\Framework\Constraint\Constraint;
 
 /**
- * 集合
+ * Given set is equal to an expected set.
  */
 final class SetEquals extends Constraint
 {
-    /** @var array */
+    /** @var array $expectedSet */
     private $expectedSet;
 
     /**
-     * @param array $expectedSet
-     * @throws \InvalidArgumentException when elements duplicates.
+     * @param mixed $expectedSet
+     * @throws \InvalidArgumentException when elements duplicate.
      */
-    public function __construct(array $expectedSet)
+    public function __construct($expectedSet)
     {
         if (!self::isSet($expectedSet)) {
             throw new \InvalidArgumentException('Set cannot have duplicated elements.');
