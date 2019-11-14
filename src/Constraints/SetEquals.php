@@ -9,7 +9,7 @@ use PHPUnit\Framework\Constraint\Constraint;
 /**
  * 集合
  */
-class SetEquals extends Constraint
+final class SetEquals extends Constraint
 {
     /** @var array */
     private $expectedSet;
@@ -20,11 +20,21 @@ class SetEquals extends Constraint
      */
     public function __construct(array $expectedSet)
     {
-        $uniqued = array_unique($expectedSet);
-        if (count($expectedSet) !== count($uniqued)) {
+        if (!self::isSet($expectedSet)) {
             throw new \InvalidArgumentException('Set cannot have duplicated elements.');
         }
         $this->expectedSet = $expectedSet;
+    }
+
+    /**
+     * returns true when given array is set.
+     * @param array $maybeSet
+     * @return bool
+     */
+    protected static function isSet(array $maybeSet): bool
+    {
+        $uniqued = array_unique($maybeSet);
+        return count($maybeSet) === count($uniqued);
     }
 
     /**
