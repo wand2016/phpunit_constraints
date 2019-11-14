@@ -45,6 +45,11 @@ class SetEqualsTest extends TestCase
         $this->assertFalse($this->sut->evaluate([0, 2, 3], '', true));
     }
 
+    public function testConstraintSetEquals_inequality_not_array(): void
+    {
+        $this->assertFalse($this->sut->evaluate(1, '', true));
+    }
+
     public function testConstraintSetEquals_toString(): void
     {
         $expected = <<<EOL

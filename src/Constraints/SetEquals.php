@@ -42,6 +42,10 @@ final class SetEquals extends Constraint
      */
     protected function matches($other): bool
     {
+        if (!is_array($other)) {
+            return false;
+        }
+
         return self::sorted($this->expectedSet)
             == self::sorted($other);
     }
