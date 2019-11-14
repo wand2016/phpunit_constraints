@@ -88,17 +88,24 @@ EOL;
     public function dataProvider_given_and_message(): array
     {
         return [
-            'set' => [
+            'a set' => [
                 [2, 3, 4],
                 <<<EOF
 Failed asserting that set [2,3,4] is equal to set [1,2,3].
 
 EOF,
             ],
-            'not set' => [
+            'not a set but an array' => [
                 [2, 2, 4],
                 <<<EOF
 Failed asserting that [2,2,4] is equal to set [1,2,3].
+
+EOF,
+            ],
+            'not a set nor an array' => [
+                1,
+                <<<EOF
+Failed asserting that 1 is equal to set [1,2,3].
 
 EOF,
             ],

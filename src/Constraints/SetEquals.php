@@ -28,11 +28,15 @@ final class SetEquals extends Constraint
 
     /**
      * returns true when given array is set.
-     * @param array $maybeSet
+     * @param mixed $maybeSet
      * @return bool
      */
-    protected static function isSet(array $maybeSet): bool
+    protected static function isSet($maybeSet): bool
     {
+        if (!is_array($maybeSet)) {
+            return false;
+        }
+
         $uniqued = array_unique($maybeSet);
         return count($maybeSet) === count($uniqued);
     }
@@ -42,7 +46,7 @@ final class SetEquals extends Constraint
      */
     protected function matches($other): bool
     {
-        if (!is_array($other)) {
+        if (!self::isSet($other)) {
             return false;
         }
 
