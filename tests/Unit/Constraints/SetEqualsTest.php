@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Constraints;
 
+use PHPUnit\Framework\ExpectationFailedException;
 use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\TestFailure;
 use WandTa\Constraints\SetEquals;
 
 class SetEqualsTest extends TestCase
@@ -41,58 +43,34 @@ EOL;
         $this->assertSame($expected, $this->sut->toString());
     }
 
-    public function testConstraintSetEquals_count_is_one(): void
+    /**
+     * @test
+     */
+    public function testConstraintSetEquals_evaluateException(): void
     {
-        $this->assertCount(1, $this->sut);
+        try {
+            $this->sut->evaluate([2,3,4]);
+        } catch (ExpectationFailedException $e) {
+            $this->assertEquals(
+                <<<EOF
+Failed asserting that Array &0 (
+    0 => 2
+    1 => 3
+    2 => 4
+) is equal to set Array &0 (
+    0 => 1
+    1 => 2
+    2 => 3
+).
+
+EOF
+                ,
+                TestFailure::exceptionToString($e)
+            );
+
+            return;
+        }
+
+        $this->fail();
     }
-
-    //     public function testConstraintIsNull(): void
-    //     {
-    //         $constraint = new IsNull;
-
-    //         $this->assertFalse($constraint->evaluate(0, '', true));
-    //         $this->assertTrue($constraint->evaluate(null, '', true));
-    //         $this->assertEquals('is null', $constraint->toString());
-    //         $this->assertCount(1, $constraint);
-
-    //         try {
-    //             $constraint->evaluate(0);
-    //         } catch (ExpectationFailedException $e) {
-    //             $this->assertEquals(
-    //                 <<<EOF
-    // Failed asserting that 0 is null.
-
-    // EOF
-    //                 ,
-    //                 TestFailure::exceptionToString($e)
-    //             );
-
-    //             return;
-    //         }
-
-    //         $this->fail();
-    //     }
-
-    //     public function testConstraintIsNull2(): void
-    //     {
-    //         $constraint = new IsNull;
-
-    //         try {
-    //             $constraint->evaluate(0, 'custom message');
-    //         } catch (ExpectationFailedException $e) {
-    //             $this->assertEquals(
-    //                 <<<EOF
-    // custom message
-    // Failed asserting that 0 is null.
-
-    // EOF
-    //                 ,
-    //                 TestFailure::exceptionToString($e)
-    //             );
-
-    //             return;
-    //         }
-
-    //         $this->fail();
-    //     }
 }
