@@ -26,7 +26,7 @@ class SetEqualsTest extends TestCase
     public function testConstraintSetEquals_construct_with_not_set(): void
     {
         $this->expectException(\InvalidArgumentException::class);
-        $sut = new SetEquals([1,1,3]);
+        $sut = new SetEquals([1, 1, 3]);
         $this->fail('element duplication');
     }
 
@@ -55,14 +55,13 @@ EOL;
     public function testConstraintSetEquals_evaluateException(): void
     {
         try {
-            $this->sut->evaluate([2,3,4]);
+            $this->sut->evaluate([2, 3, 4]);
         } catch (ExpectationFailedException $e) {
             $this->assertEquals(
                 <<<EOF
 Failed asserting that set [2,3,4] is equal to set [1,2,3].
 
-EOF
-                ,
+EOF,
                 TestFailure::exceptionToString($e)
             );
 
