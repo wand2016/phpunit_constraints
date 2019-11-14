@@ -9,23 +9,41 @@ use WandTa\Constraints\SetEquals;
 
 class SetEqualsTest extends TestCase
 {
+    /** @var SetEquals $sut */
+    private $sut;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+        $this->sut = new SetEquals([1, 2, 3]);
+    }
+
     public function testConstraintSetEquals_equality(): void
     {
-        $constraint = new SetEquals([1, 2, 3]);
-        $this->assertTrue($constraint->evaluate([1, 2, 3], '', true));
+        $this->assertTrue($this->sut->evaluate([1, 2, 3], '', true));
     }
 
     public function testConstraintSetEquals_inequality(): void
     {
-        $constraint = new SetEquals([1, 2, 3]);
-        $this->assertFalse($constraint->evaluate([0, 2, 3], '', true));
+        $this->assertFalse($this->sut->evaluate([0, 2, 3], '', true));
+    }
+
+    public function testConstraintSetEquals_toString(): void
+    {
+        $expected = <<<EOL
+is equal to set Array &0 (
+    0 => 1
+    1 => 2
+    2 => 3
+)
+EOL;
+
+        $this->assertSame($expected, $this->sut->toString());
     }
 
     public function testConstraintSetEquals_count_is_one(): void
     {
-        $constraint = new SetEquals([1, 2, 3]);
-
-        $this->assertCount(1, $constraint);
+        $this->assertCount(1, $this->sut);
     }
 
     //     public function testConstraintIsNull(): void
