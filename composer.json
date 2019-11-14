@@ -1,5 +1,6 @@
 {
     "name": "wand_ta/phpunit_constraints",
+    "description": "My Own PHPUnit extensions.",
     "type": "library",
     "require": {
         "phpunit/phpunit": "^8.4"
