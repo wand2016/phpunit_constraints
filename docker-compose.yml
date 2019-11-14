@@ -1,0 +1,11 @@
+version: "3"
+services:
+  composer:
+    build:
+      context: .
+      dockerfile: ./docker/composer/Dockerfile
+    volumes:
+      - ./:/app
+    entrypoint: sh
+    tty: true
+      
