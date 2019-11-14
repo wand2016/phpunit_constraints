@@ -42,15 +42,19 @@ final class SetEquals extends Constraint
      */
     protected function matches($other): bool
     {
-        $left = $this->expectedSet;
-        sort($left);
-        $left = array_values($left);
+        return self::sorted($this->expectedSet)
+            == self::sorted($other);
+    }
 
-        $right = $other;
-        sort($right);
-        $right = array_values($right);
-
-        return $left == $right;
+    /**
+     * get sorted array from given set.
+     * @param array $set
+     * @return array sorted array
+     */
+    protected static function sorted(array $set): array
+    {
+        sort($set);
+        return array_values($set);
     }
 
     /**
