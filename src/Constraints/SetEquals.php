@@ -66,7 +66,8 @@ final class SetEquals extends Constraint
      */
     protected function failureDescription($other): string
     {
-        return 'set ' . \json_encode($other) . ' ' . $this->toString();
+        return (self::isSet($other) ? 'set ' : '')
+            . \json_encode($other) . ' ' . $this->toString();
     }
 
     /**

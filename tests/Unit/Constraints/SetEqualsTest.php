@@ -61,17 +61,17 @@ EOL;
 
     /**
      * @test
+     * @dataProvider dataProvider_given_and_message
      */
-    public function testConstraintSetEquals_evaluateException(): void
-    {
+    public function testConstraintSetEquals_evaluateException(
+        $other,
+        string $expectedMessage
+    ): void {
         try {
-            $this->sut->evaluate([2, 3, 4]);
+            $this->sut->evaluate($other);
         } catch (ExpectationFailedException $e) {
             $this->assertEquals(
-                <<<EOF
-Failed asserting that set [2,3,4] is equal to set [1,2,3].
-
-EOF,
+                $expectedMessage,
                 TestFailure::exceptionToString($e)
             );
 
@@ -79,5 +79,29 @@ EOF,
         }
 
         $this->fail();
+    }
+
+    // ----------------------------------------
+    // dataProviders
+    // ----------------------------------------
+
+    public function dataProvider_given_and_message(): array
+    {
+        return [
+            'set' => [
+                [2, 3, 4],
+                <<<EOF
+Failed asserting that set [2,3,4] is equal to set [1,2,3].
+
+EOF,
+            ],
+            'not set' => [
+                [2, 2, 4],
+                <<<EOF
+Failed asserting that [2,2,4] is equal to set [1,2,3].
+
+EOF,
+            ],
+        ];
     }
 }
