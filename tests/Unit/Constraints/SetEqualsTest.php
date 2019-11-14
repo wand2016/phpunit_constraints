@@ -33,11 +33,7 @@ class SetEqualsTest extends TestCase
     public function testConstraintSetEquals_toString(): void
     {
         $expected = <<<EOL
-is equal to set Array &0 (
-    0 => 1
-    1 => 2
-    2 => 3
-)
+is equal to set [1,2,3]
 EOL;
 
         $this->assertSame($expected, $this->sut->toString());
@@ -53,15 +49,7 @@ EOL;
         } catch (ExpectationFailedException $e) {
             $this->assertEquals(
                 <<<EOF
-Failed asserting that Array &0 (
-    0 => 2
-    1 => 3
-    2 => 4
-) is equal to set Array &0 (
-    0 => 1
-    1 => 2
-    2 => 3
-).
+Failed asserting that set [2,3,4] is equal to set [1,2,3].
 
 EOF
                 ,

@@ -24,13 +24,7 @@ class SetEquals extends Constraint
     }
 
     /**
-     * Evaluates the constraint for parameter $other. Returns true if the
-     * constraint is met, false otherwise.
-     *
-     * This method can be overridden to implement the evaluation algorithm.
-     *
-     * @param mixed $other value or object to evaluate
-     * @codeCoverageIgnore
+     * {@inheritDoc}
      */
     protected function matches($other): bool
     {
@@ -38,12 +32,18 @@ class SetEquals extends Constraint
     }
 
     /**
-     * Returns a string representation of the constraint.
-     *
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
+     * {@inheritDoc}
+     */
+    protected function failureDescription($other): string
+    {
+        return 'set ' . \json_encode($other) . ' ' . $this->toString();
+    }
+
+    /**
+     * {@inheritDoc}
      */
     public function toString(): string
     {
-        return 'is equal to set ' . $this->exporter()->export($this->expectedSet);
+        return 'is equal to set ' . \json_encode($this->expectedSet);
     }
 }
