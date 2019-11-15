@@ -36,11 +36,16 @@ class HtmlNodeCount extends Constraint
      */
     protected function matches($other): bool
     {
+        return $this->getCountOf($other) === $this->expectedCount;
+    }
+
+    protected function getCountOf($other)
+    {
         $dom = new Crawler();
         $dom->addHtmlContent($other);
         $filtered = $dom->filter($this->selector);
 
-        return count($filtered) === $this->expectedCount;
+        return count($filtered);
     }
 
     /**
