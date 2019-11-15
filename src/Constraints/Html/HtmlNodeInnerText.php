@@ -42,8 +42,11 @@ class HtmlNodeInnerText extends Constraint
         return $first->text() === $this->expectedInnerText;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function toString(): string
     {
-        return 'hoge';
+        return \sprintf('the innerText of the first node specified with the given selector is "%s"', $this->expectedInnerText);
     }
 }

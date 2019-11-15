@@ -44,4 +44,16 @@ class HtmlNodeInnerTextTest extends TestCase
 
         $this->assertFalse($sut->evaluate($html, '', true));
     }
+
+    /**
+     * @test
+     */
+    public function toString_()
+    {
+        $sut = new HtmlNodeInnerText('h2', 'As You Like It');
+        $this->assertSame(
+            'the innerText of the first node specified with the given selector is "As You Like It"',
+            $sut->toString()
+        );
+    }
 }
