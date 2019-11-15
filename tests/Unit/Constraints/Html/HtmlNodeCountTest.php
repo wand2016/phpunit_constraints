@@ -14,7 +14,7 @@ class HtmlNodeCountTest extends TestCase
     /**
      * @test
      */
-    public function passes()
+    public function passes(): void
     {
         $html = file_get_contents(__DIR__ . '/Sample/shakespeare.html');
 
@@ -26,7 +26,7 @@ class HtmlNodeCountTest extends TestCase
     /**
      * @test
      */
-    public function passes_with_empty_set()
+    public function passes_with_empty_set(): void
     {
         $html = file_get_contents(__DIR__ . '/Sample/shakespeare.html');
 

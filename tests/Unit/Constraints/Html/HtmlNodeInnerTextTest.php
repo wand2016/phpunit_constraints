@@ -14,7 +14,7 @@ class HtmlNodeInnerTextTest extends TestCase
     /**
      * @test
      */
-    public function passes_with_flat_node()
+    public function passes_with_flat_node(): void
     {
         $html = file_get_contents(__DIR__ . '/Sample/shakespeare.html');
 
@@ -26,7 +26,7 @@ class HtmlNodeInnerTextTest extends TestCase
     /**
      * @test
      */
-    public function passes_with_nested_nodes()
+    public function passes_with_nested_nodes(): void
     {
         $html = <<<EOL
 <html>
@@ -44,7 +44,7 @@ EOL;
     /**
      * @test
      */
-    public function fails_when_no_node_is_specified()
+    public function fails_when_no_node_is_specified(): void
     {
         $html = file_get_contents(__DIR__ . '/Sample/shakespeare.html');
 
@@ -57,7 +57,7 @@ EOL;
     /**
      * @test
      */
-    public function fails_different_content()
+    public function fails_different_content(): void
     {
         $html = file_get_contents(__DIR__ . '/Sample/shakespeare.html');
 
@@ -69,7 +69,7 @@ EOL;
     /**
      * @test
      */
-    public function toString_expected_format()
+    public function toString_expected_format(): void
     {
         $sut = new HtmlNodeInnerText('h2', 'As You Like It');
         $this->assertSame(
@@ -86,8 +86,7 @@ EOL;
         string $selector,
         string $expectedInnerText,
         string $expectedMessage
-    ): void
-    {
+    ): void {
         $html = file_get_contents(__DIR__ . '/Sample/shakespeare.html');
         $sut = new HtmlNodeInnerText($selector, $expectedInnerText);
 
