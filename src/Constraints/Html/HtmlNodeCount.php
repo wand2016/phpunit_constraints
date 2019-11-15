@@ -48,6 +48,9 @@ class HtmlNodeCount extends Constraint
      */
     public function toString(): string
     {
-        return 'is HTML';
+        return \sprintf(
+            'count matches %d',
+            $this->expectedCount
+        );
     }
 }

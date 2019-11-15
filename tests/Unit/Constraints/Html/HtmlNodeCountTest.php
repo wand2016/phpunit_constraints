@@ -15,13 +15,13 @@ class HtmlNodeCountTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-        $this->sut = new HtmlNodeCount('div', 3);
+        $this->sut = new HtmlNodeCount('div', 243);
     }
 
     /**
      * @dataProvider dataProvider
      */
-    public function testConstraintIsHtml(
+    public function testConstraintHtmlNodeCount(
         string $selector,
         int $countExpected,
         string $html,
@@ -32,6 +32,15 @@ class HtmlNodeCountTest extends TestCase
             $expected,
             $sut->evaluate($html, '', true)
         );
+    }
+
+    public function testConstraintHtmlNodeCount_toString(): void
+    {
+        $expected = <<<EOL
+count matches 243
+EOL;
+
+        $this->assertSame($expected, $this->sut->toString());
     }
 
     // ----------------------------------------
