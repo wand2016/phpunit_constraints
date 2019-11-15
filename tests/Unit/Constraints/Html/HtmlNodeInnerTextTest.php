@@ -26,6 +26,18 @@ class HtmlNodeInnerTextTest extends TestCase
     /**
      * @test
      */
+    public function passes_with_nested_element()
+    {
+        $html = '<html><body><div>text and <span>node</span></div></body></html>';
+
+        $sut = new HtmlNodeInnerText('div', 'text and node');
+
+        $this->assertTrue($sut->evaluate($html, '', true));
+    }
+
+    /**
+     * @test
+     */
     public function fails_empty_set()
     {
         $html = file_get_contents(__DIR__ . '/Sample/shakespeare.html');
