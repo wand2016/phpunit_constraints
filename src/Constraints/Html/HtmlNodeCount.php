@@ -25,8 +25,7 @@ class HtmlNodeCount extends Constraint
     public function __construct(
         string $selector,
         int $expectedCount
-    )
-    {
+    ) {
         $this->selector = $selector;
         $this->expectedCount = $expectedCount;
     }
@@ -55,6 +54,18 @@ class HtmlNodeCount extends Constraint
     {
         return \sprintf(
             'count matches %d',
+            $this->expectedCount
+        );
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    protected function failureDescription($other): string
+    {
+        return \sprintf(
+            'actual size %d matches expected size %d',
+            $this->getCountOf($other),
             $this->expectedCount
         );
     }

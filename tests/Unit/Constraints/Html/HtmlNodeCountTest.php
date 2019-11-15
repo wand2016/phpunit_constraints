@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Tests\Unit\Constraints\Html;
 
 use PHPStan\Testing\TestCase;
+use PHPUnit\Framework\ExpectationFailedException;
+use PHPUnit\Framework\TestFailure;
 use WandTa\Constraints\Html\HtmlNodeCount;
 
 class HtmlNodeCountTest extends TestCase
@@ -41,6 +43,25 @@ count matches 243
 EOL;
 
         $this->assertSame($expected, $this->sut->toString());
+    }
+
+    public function testConstraintHtmlNodeCount_evaluateException(): void
+    {
+        try {
+            $this->sut->evaluate('<html></html>');
+        } catch (ExpectationFailedException $e) {
+            $this->assertEquals(
+                <<<EOL
+Failed asserting that actual size 0 matches expected size 243.
+
+EOL,
+                TestFailure::exceptionToString($e)
+            );
+
+            return;
+        }
+
+        $this->fail();
     }
 
     // ----------------------------------------
