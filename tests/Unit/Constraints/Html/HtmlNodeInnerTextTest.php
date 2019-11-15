@@ -14,7 +14,7 @@ class HtmlNodeInnerTextTest extends TestCase
     /**
      * @test
      */
-    public function passes()
+    public function passes_with_flat_node(): void
     {
         $html = file_get_contents(__DIR__ . '/Sample/shakespeare.html');
 
@@ -26,9 +26,15 @@ class HtmlNodeInnerTextTest extends TestCase
     /**
      * @test
      */
-    public function passes_with_nested_element()
+    public function passes_with_nested_nodes(): void
     {
-        $html = '<html><body><div>text and <span>node</span></div></body></html>';
+        $html = <<<EOL
+<html>
+  <body>
+    <div>text and <span>node</span></div>
+  </body>
+</html>
+EOL;
 
         $sut = new HtmlNodeInnerText('div', 'text and node');
 
@@ -38,10 +44,11 @@ class HtmlNodeInnerTextTest extends TestCase
     /**
      * @test
      */
-    public function fails_empty_set()
+    public function fails_when_no_node_is_specified(): void
     {
         $html = file_get_contents(__DIR__ . '/Sample/shakespeare.html');
 
+        // given HTML has no <h1>
         $sut = new HtmlNodeInnerText('h1', 'As You Like It');
 
         $this->assertFalse($sut->evaluate($html, '', true));
@@ -50,7 +57,7 @@ class HtmlNodeInnerTextTest extends TestCase
     /**
      * @test
      */
-    public function fails_different_content()
+    public function fails_different_content(): void
     {
         $html = file_get_contents(__DIR__ . '/Sample/shakespeare.html');
 
@@ -62,7 +69,7 @@ class HtmlNodeInnerTextTest extends TestCase
     /**
      * @test
      */
-    public function toString_()
+    public function toString_expected_format(): void
     {
         $sut = new HtmlNodeInnerText('h2', 'As You Like It');
         $this->assertSame(
@@ -79,8 +86,7 @@ class HtmlNodeInnerTextTest extends TestCase
         string $selector,
         string $expectedInnerText,
         string $expectedMessage
-    ): void
-    {
+    ): void {
         $html = file_get_contents(__DIR__ . '/Sample/shakespeare.html');
         $sut = new HtmlNodeInnerText($selector, $expectedInnerText);
 

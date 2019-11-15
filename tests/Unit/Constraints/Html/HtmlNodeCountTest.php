@@ -11,48 +11,56 @@ use WandTa\Constraints\Html\HtmlNodeCount;
 
 class HtmlNodeCountTest extends TestCase
 {
-    /** @var HtmlNodeCount $sut */
-    private $sut;
-
-    public function setUp(): void
+    /**
+     * @test
+     */
+    public function passes(): void
     {
-        parent::setUp();
-        $this->sut = new HtmlNodeCount('div', 243);
+        $html = file_get_contents(__DIR__ . '/Sample/shakespeare.html');
+
+        $sut = new HtmlNodeCount('div', 243);
+
+        $this->assertTrue($sut->evaluate($html, '', true));
     }
 
     /**
-     * @dataProvider dataProvider
+     * @test
      */
-    public function testConstraintHtmlNodeCount(
-        string $selector,
-        int $countExpected,
-        string $html,
-        bool $expected
-    ): void {
-        $sut = new HtmlNodeCount($selector, $countExpected);
-        $this->assertSame(
-            $expected,
-            $sut->evaluate($html, '', true)
-        );
+    public function passes_with_empty_set(): void
+    {
+        $html = file_get_contents(__DIR__ . '/Sample/shakespeare.html');
+
+        $sut = new HtmlNodeCount('h1', 0);
+
+        $this->assertTrue($sut->evaluate($html, '', true));
     }
 
-    public function testConstraintHtmlNodeCount_toString(): void
+    /**
+     * @test
+     */
+    public function toString_expected_format(): void
     {
+        $sut = new HtmlNodeCount('div', 243);
+
         $expected = <<<EOL
 count matches 243
 EOL;
 
-        $this->assertSame($expected, $this->sut->toString());
+        $this->assertSame($expected, $sut->toString());
     }
 
-    public function testConstraintHtmlNodeCount_evaluateException(): void
+    /**
+     * @test
+     */
+    public function evaluateException(): void
     {
         try {
-            $this->sut->evaluate('<html></html>');
+            $sut = new HtmlNodeCount('div', 1);
+            $sut->evaluate('<html></html>');
         } catch (ExpectationFailedException $e) {
             $this->assertEquals(
                 <<<EOL
-Failed asserting that actual size 0 matches expected size 243.
+Failed asserting that actual size 0 matches expected size 1.
 
 EOL,
                 TestFailure::exceptionToString($e)
@@ -62,53 +70,5 @@ EOL,
         }
 
         $this->fail();
-    }
-
-    // ----------------------------------------
-    // dataProvider
-    // ----------------------------------------
-
-    public function dataProvider(): array
-    {
-        $html = file_get_contents(__DIR__ . '/Sample/shakespeare.html');
-
-        return [
-            'equal' => [
-                'div',
-                243,
-                $html,
-                true,
-            ],
-            'not equal (-1)' => [
-                'div',
-                242,
-                $html,
-                false,
-            ],
-            'not equal (+1)' => [
-                'div',
-                244,
-                $html,
-                false,
-            ],
-            'equal (filtered with css)' => [
-                'div.dialog',
-                51,
-                $html,
-                true,
-            ],
-            'unknown element' => [
-                'hoge',
-                0,
-                $html,
-                true,
-            ],
-            'known element with unused class' => [
-                'div.hoge',
-                0,
-                $html,
-                true,
-            ],
-        ];
     }
 }

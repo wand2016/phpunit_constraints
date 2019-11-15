@@ -21,36 +21,38 @@ class SetEqualsTest extends TestCase
     }
 
     /**
-     * @expectedException
+     * @test
      */
-    public function testConstraintSetEquals_construct_with_not_set(): void
+    public function construct_failes_with_not_a_set(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $sut = new SetEquals([1, 1, 3]);
         $this->fail('element duplication');
     }
 
-    public function testConstraintSetEquals_equality(): void
+    /**
+     * @test
+     * @dataProvider dataProvider_passes
+     */
+    public function passes($spec): void
     {
-        $this->assertTrue($this->sut->evaluate([1, 2, 3], '', true));
+        $this->assertTrue($this->sut->evaluate($spec, '', true));
     }
 
-    public function testConstraintSetEquals_equality_not_the_same_order(): void
+    /**
+     * @test
+     * @dataProvider dataProvider_given_and_message
+     */
+    public function failes($spec): void
     {
-        $this->assertTrue($this->sut->evaluate([2, 3, 1], '', true));
+        $this->assertFalse($this->sut->evaluate($spec, '', true));
     }
 
-    public function testConstraintSetEquals_inequality(): void
-    {
-        $this->assertFalse($this->sut->evaluate([0, 2, 3], '', true));
-    }
 
-    public function testConstraintSetEquals_inequality_not_array(): void
-    {
-        $this->assertFalse($this->sut->evaluate(1, '', true));
-    }
-
-    public function testConstraintSetEquals_toString(): void
+    /**
+     * @test
+     */
+    public function toString_expected_format(): void
     {
         $expected = <<<EOL
 is equal to set [1,2,3]
@@ -63,7 +65,7 @@ EOL;
      * @test
      * @dataProvider dataProvider_given_and_message
      */
-    public function testConstraintSetEquals_evaluateException(
+    public function evaluateException_message(
         $other,
         string $expectedMessage
     ): void {
@@ -84,6 +86,18 @@ EOL;
     // ----------------------------------------
     // dataProviders
     // ----------------------------------------
+
+    public function dataProvider_passes(): array
+    {
+        return [
+            'same order' => [
+                [1, 2, 3]
+            ],
+            'different order' => [
+                [2, 3, 1]
+            ],
+        ];
+    }
 
     public function dataProvider_given_and_message(): array
     {
