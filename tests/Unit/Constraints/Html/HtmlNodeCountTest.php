@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Constraints\Html;
 
-use PHPStan\Testing\TestCase;
 use PHPUnit\Framework\ExpectationFailedException;
+use PHPUnit\Framework\TestCase;
 use PHPUnit\Framework\TestFailure;
 use WandTa\Constraints\Html\HtmlNodeCount;
 
