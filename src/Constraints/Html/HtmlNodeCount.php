@@ -15,20 +15,20 @@ class HtmlNodeCount extends Constraint
     /** @var string $selector */
     private $selector;
 
-    /** @var int $countExpected */
-    private $countExpected;
+    /** @var int $expectedCount */
+    private $expectedCount;
 
     /**
      * @param string $selector
-     * @param int $countExpected
+     * @param int $expectedCount
      */
     public function __construct(
         string $selector,
-        int $countExpected
+        int $expectedCount
     )
     {
         $this->selector = $selector;
-        $this->countExpected = $countExpected;
+        $this->expectedCount = $expectedCount;
     }
 
     /**
@@ -40,7 +40,7 @@ class HtmlNodeCount extends Constraint
         $dom->addHtmlContent($other);
         $filtered = $dom->filter($this->selector);
 
-        return count($filtered) === $this->countExpected;
+        return count($filtered) === $this->expectedCount;
     }
 
     /**
