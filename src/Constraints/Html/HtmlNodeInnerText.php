@@ -45,8 +45,20 @@ class HtmlNodeInnerText extends Constraint
     /**
      * {@inheritDoc}
      */
+    protected function failureDescription($other): string
+    {
+        return $this->toString();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function toString(): string
     {
-        return \sprintf('the innerText of the first node specified with the given selector is "%s"', $this->expectedInnerText);
+        return \sprintf(
+            '"%s" is the innerText of the first node specified with the given selector "%s"',
+            $this->expectedInnerText,
+            $this->selector
+        );
     }
 }
