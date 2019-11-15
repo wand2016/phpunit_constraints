@@ -26,8 +26,7 @@ class HtmlNodeCountTest extends TestCase
         int $countExpected,
         string $html,
         bool $expected
-    ): void
-    {
+    ): void {
         $sut = new HtmlNodeCount($selector, $countExpected);
         $this->assertSame(
             $expected,
@@ -44,23 +43,35 @@ class HtmlNodeCountTest extends TestCase
         $html = file_get_contents(__DIR__ . '/Sample/shakespeare.html');
 
         return [
-            [
+            'equal' => [
                 'div',
                 243,
                 $html,
                 true,
             ],
-            [
+            'not equal (-1)' => [
                 'div',
                 242,
                 $html,
                 false,
             ],
-            [
+            'not equal (+1)' => [
                 'div',
                 244,
                 $html,
                 false,
+            ],
+            'unknown element' => [
+                'hoge',
+                0,
+                $html,
+                true,
+            ],
+            'known element with unused class' => [
+                'div.hoge',
+                0,
+                $html,
+                true,
             ],
         ];
     }

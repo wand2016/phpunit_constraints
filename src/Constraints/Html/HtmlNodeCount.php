@@ -40,6 +40,7 @@ class HtmlNodeCount extends Constraint
         $dom = new Crawler();
         $dom->addHtmlContent($other);
         $filtered = $dom->filter($this->selector);
+
         return count($filtered) === $this->countExpected;
     }
 
