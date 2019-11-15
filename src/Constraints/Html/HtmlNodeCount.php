@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace WandTa\Constraints\Html;
 
-use DOMDocument;
 use PHPUnit\Framework\Constraint\Constraint;
 use Symfony\Component\DomCrawler\Crawler;
 
