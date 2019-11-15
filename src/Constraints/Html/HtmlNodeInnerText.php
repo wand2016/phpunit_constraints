@@ -48,7 +48,7 @@ class HtmlNodeInnerText extends Constraint
     protected function tryGetFirst($other): Crawler
     {
         $dom = new Crawler();
-        $dom->addHtmlContent($other);
+        $dom->addHtmlContent((string) $other);
         $maybeFirst = $dom->filter($this->selector)->first();
         return $maybeFirst;
     }
