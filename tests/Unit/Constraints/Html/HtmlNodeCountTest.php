@@ -91,6 +91,12 @@ EOL,
                 $html,
                 false,
             ],
+            'equal (filtered with css)' => [
+                'div.dialog',
+                51,
+                $html,
+                true,
+            ],
             'unknown element' => [
                 'hoge',
                 0,
