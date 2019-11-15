@@ -32,14 +32,25 @@ class HtmlNodeInnerText extends Constraint
      */
     protected function matches($other): bool
     {
-        $dom = new Crawler();
-        $dom->addHtmlContent($other);
-        $first = $dom->filter($this->selector)->first();
-        if (count($first) === 0) {
+        $maybeFirst = $this->tryGetFirst($other);
+        if (count($maybeFirst) === 0) {
             return false;
         }
 
-        return $first->text() === $this->expectedInnerText;
+        return $maybeFirst->text() === $this->expectedInnerText;
+    }
+
+    /**
+     * try to get the first node specified by the given selector
+     * @param mixed $other html
+     * @return Crawler with at most one node
+     */
+    protected function tryGetFirst($other): Crawler
+    {
+        $dom = new Crawler();
+        $dom->addHtmlContent($other);
+        $maybeFirst = $dom->filter($this->selector)->first();
+        return $maybeFirst;
     }
 
     /**

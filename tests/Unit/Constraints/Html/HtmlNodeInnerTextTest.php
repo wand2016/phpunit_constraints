@@ -101,7 +101,14 @@ Failed asserting that "As You Like It" is the innerText of the first node specif
 
 EOL,
             ],
+            'innerText is different' => [
+                'h2',
+                'As You Hate It',
+                <<<EOL
+Failed asserting that "As You Hate It" is the innerText of the first node specified with the given selector "h2".
 
+EOL,
+            ],
         ];
     }
 }
