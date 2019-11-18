@@ -7,6 +7,10 @@ namespace WandTa\Constraints\Html;
 use PHPUnit\Framework\Constraint\Constraint;
 use Symfony\Component\DomCrawler\Crawler;
 
+/**
+ * The innerText of the node specified by given CSS selector
+ * is equal to given value.
+ */
 class HtmlNodeInnerText extends Constraint
 {
     /** @var string $selector */
