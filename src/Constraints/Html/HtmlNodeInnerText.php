@@ -62,7 +62,19 @@ class HtmlNodeInnerText extends Constraint
      */
     protected function failureDescription($other): string
     {
-        return $this->toString();
+        $ret = $this->toString();
+
+        $maybeFirst = $this->tryGetFirst($other);
+
+        if ($maybeFirst->count() === 0) {
+            $ret .= '.' .PHP_EOL .
+                sprintf(
+                    'No node is specified by given selector "%s"',
+                    $this->selector
+                );
+        }
+
+        return $ret;
     }
 
     /**
@@ -71,7 +83,7 @@ class HtmlNodeInnerText extends Constraint
     public function toString(): string
     {
         return \sprintf(
-            '"%s" is the innerText of the first node specified with the given selector "%s"',
+            '"%s" is the innerText of the first node specified with given selector "%s"',
             $this->expectedInnerText,
             $this->selector
         );
