@@ -62,19 +62,18 @@ class HtmlNodeInnerText extends Constraint
      */
     protected function failureDescription($other): string
     {
-        $ret = $this->toString();
-
         $maybeFirst = $this->tryGetFirst($other);
 
-        if ($maybeFirst->count() === 0) {
-            $ret .= '.' .PHP_EOL .
-                sprintf(
-                    'No node is specified by given selector "%s"',
-                    $this->selector
-                );
+        if ($maybeFirst->count() > 0) {
+            return $this->toString();
         }
 
-        return $ret;
+        return sprintf(
+            '%s.' . PHP_EOL
+                . 'No node is specified by given selector "%s"',
+            $this->toString(),
+            $this->selector
+        );
     }
 
     /**
