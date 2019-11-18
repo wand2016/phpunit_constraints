@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace WandTa\Assertions;
 
-use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\TestCase as PHPUnit;
 use WandTa\Constraints\Html\HtmlNodeAttribute;
 use WandTa\Constraints\Html\HtmlNodeCount;
 use WandTa\Constraints\Html\HtmlNodeExists;
@@ -29,7 +29,7 @@ trait HtmlAssertions
         int $expectedCount,
         $html
     ): void {
-        TestCase::assertThat(
+        PHPUnit::assertThat(
             $html,
             self::htmlNodeCount($selector, $expectedCount)
         );
@@ -48,9 +48,9 @@ trait HtmlAssertions
         int $expectedCount,
         $html
     ): void {
-        TestCase::assertThat(
+        PHPUnit::assertThat(
             $html,
-            TestCase::logicalNot(
+            PHPUnit::logicalNot(
                 self::htmlNodeCount($selector, $expectedCount)
             )
         );
@@ -84,7 +84,7 @@ trait HtmlAssertions
         string $expectedInnerText,
         $html
     ): void {
-        TestCase::assertThat(
+        PHPUnit::assertThat(
             $html,
             self::htmlNodeInnerText($selector, $expectedInnerText)
         );
@@ -103,9 +103,9 @@ trait HtmlAssertions
         string $expectedInnerText,
         $html
     ): void {
-        TestCase::assertThat(
+        PHPUnit::assertThat(
             $html,
-            TestCase::logicalNot(
+            PHPUnit::logicalNot(
                 self::htmlNodeInnerText($selector, $expectedInnerText)
             )
         );
@@ -139,7 +139,7 @@ trait HtmlAssertions
         string $expectedHref,
         $html
     ): void {
-        TestCase::assertThat(
+        PHPUnit::assertThat(
             $html,
             self::htmlNodeLinksTo($selector, $expectedHref)
         );
@@ -158,9 +158,9 @@ trait HtmlAssertions
         string $expectedHref,
         $html
     ): void {
-        TestCase::assertThat(
+        PHPUnit::assertThat(
             $html,
-            TestCase::logicalNot(
+            PHPUnit::logicalNot(
                 self::htmlNodeLinksTo($selector, $expectedHref)
             )
         );
@@ -191,7 +191,7 @@ trait HtmlAssertions
         string $selector,
         $html
     ): void {
-        TestCase::assertThat(
+        PHPUnit::assertThat(
             $html,
             self::htmlNodeExists($selector)
         );
@@ -207,9 +207,9 @@ trait HtmlAssertions
         string $selector,
         $html
     ): void {
-        TestCase::assertThat(
+        PHPUnit::assertThat(
             $html,
-            TestCase::logicalNot(
+            PHPUnit::logicalNot(
                 self::htmlNodeExists($selector)
             )
         );
@@ -236,7 +236,7 @@ trait HtmlAssertions
         string $expectedHref,
         $html
     ): void {
-        TestCase::assertThat(
+        PHPUnit::assertThat(
             $html,
             self::htmlLinksTo($expectedHref)
         );
@@ -252,9 +252,9 @@ trait HtmlAssertions
         string $expectedHref,
         $html
     ): void {
-        TestCase::assertThat(
+        PHPUnit::assertThat(
             $html,
-            TestCase::logicalNot(
+            PHPUnit::logicalNot(
                 self::htmlLinksTo($expectedHref)
             )
         );
