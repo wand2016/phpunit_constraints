@@ -8,7 +8,8 @@ use PHPUnit\Framework\Constraint\Constraint;
 use Symfony\Component\DomCrawler\Crawler;
 
 /**
- *
+ * The number of the node specified by given CSS selector
+ * is equal to given value.
  */
 class HtmlNodeCount extends Constraint
 {

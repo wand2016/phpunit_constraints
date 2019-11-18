@@ -73,4 +73,23 @@ EOL
         );
     }
 
+    /**
+     * @test
+     */
+    public function assertHtmlNodeLinksTo_works()
+    {
+        $this->assertHtmlNodeLinksTo(
+            'div.back a',
+            '../menu.html',
+            <<<EOL
+<html>
+  <body>
+    <section class="content">brabra</section>
+    <div class="back"><a href="../menu.html">back to menu</a></div>
+  </body>
+</html>
+EOL
+        );
+
+    }
 }

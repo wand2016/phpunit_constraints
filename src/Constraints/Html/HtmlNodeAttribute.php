@@ -8,27 +8,34 @@ use PHPUnit\Framework\Constraint\Constraint;
 use Symfony\Component\DomCrawler\Crawler;
 
 /**
- * The innerText of the node specified by given CSS selector
+ * The attribute specified by given CSS selector and attribute name
  * is equal to given value.
  */
-class HtmlNodeInnerText extends Constraint
+class HtmlNodeAttribute extends Constraint
 {
     /** @var string $selector */
     private $selector;
 
-    /** @var string $expectedInnerText */
-    private $expectedInnerText;
+    /** @var string $attributeName */
+    private $attributeName;
+
+    /** @var string|null $expectedAttributeValue */
+    private $expectedAttributeValue;
 
     /**
      * @param string $selector
-     * @param string $expectedInnerText
+     * @param string $attributeName
+     * @param string|null $expectedAttributeValue
+     *        when null is given, it means that the attribute shouldn't be set.
      */
     public function __construct(
         string $selector,
-        string $expectedInnerText
+        string $attributeName,
+        ?string $expectedAttributeValue
     ) {
         $this->selector = $selector;
-        $this->expectedInnerText = $expectedInnerText;
+        $this->attributeName = $attributeName;
+        $this->expectedAttributeValue = $expectedAttributeValue;
     }
 
     /**
@@ -41,13 +48,15 @@ class HtmlNodeInnerText extends Constraint
             return false;
         }
 
-        return $maybeFirst->text() === $this->expectedInnerText;
+        return $maybeFirst->first()->attr($this->attributeName)
+            === $this->expectedAttributeValue;
     }
 
     /**
      * try to get the first node specified by the given selector
      * @param mixed $other html
      * @return Crawler with at most one node
+     * @todo refactoring/extracting to function
      */
     protected function tryGetFirst($other): Crawler
     {
@@ -82,8 +91,9 @@ class HtmlNodeInnerText extends Constraint
     public function toString(): string
     {
         return \sprintf(
-            '"%s" is the innerText of the first node specified by given selector "%s"',
-            $this->expectedInnerText,
+            '"%s" is %s attribute of the first node specified by given selector "%s"',
+            $this->expectedAttributeValue,
+            $this->attributeName,
             $this->selector
         );
     }
