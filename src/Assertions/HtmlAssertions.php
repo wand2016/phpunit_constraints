@@ -7,6 +7,7 @@ namespace WandTa\Assertions;
 use PHPUnit\Framework\TestCase;
 use WandTa\Constraints\Html\HtmlNodeAttribute;
 use WandTa\Constraints\Html\HtmlNodeCount;
+use WandTa\Constraints\Html\HtmlNodeExists;
 use WandTa\Constraints\Html\HtmlNodeInnerText;
 
 /**
@@ -63,6 +64,34 @@ trait HtmlAssertions
         $html
     ): void {
         $constraint = new HtmlNodeAttribute($selector, 'href', $expectedHref);
+        TestCase::assertThat($html, $constraint);
+    }
+
+    /**
+     * Asserts that the node specified by given selector exists.
+     * @param string $selector
+     * @param mixed $html
+     * @return void
+     */
+    public function assertHtmlNodeExists(
+        string $selector,
+        $html
+    ): void {
+        $constraint = new HtmlNodeExists($selector);
+        TestCase::assertThat($html, $constraint);
+    }
+
+    /**
+     * Asserts that there is <a> element whose href attribute is expected value.
+     * @param string $expectedHref
+     * @param mixed $html
+     * @return void
+     */
+    public function assertHtmlLinksTo(
+        string $expectedHref,
+        $html
+    ): void {
+        $constraint = new HtmlNodeExists(sprintf('a[href="%s"]', $expectedHref));
         TestCase::assertThat($html, $constraint);
     }
 }

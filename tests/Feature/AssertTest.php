@@ -90,6 +90,41 @@ EOL
 </html>
 EOL
         );
+    }
 
+    /**
+     * @test
+     */
+    public function assertHtmlNodeExists_works()
+    {
+        $this->assertHtmlNodeExists(
+            'section.content',
+            <<<EOL
+<html>
+  <body>
+    <section class="content">brabra</section>
+    <div class="back"><a href="../menu.html">back to menu</a></div>
+  </body>
+</html>
+EOL
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function assertHtmlLinksTo_works()
+    {
+        $this->assertHtmlLinksTo(
+            '../menu.html',
+            <<<EOL
+<html>
+  <body>
+    <section class="content">brabra</section>
+    <div class="back"><a href="../menu.html">back to menu</a></div>
+  </body>
+</html>
+EOL
+        );
     }
 }
