@@ -82,7 +82,7 @@ class HtmlNodeInnerText extends Constraint
     public function toString(): string
     {
         return \sprintf(
-            '"%s" is the innerText of the first node specified with given selector "%s"',
+            '"%s" is the innerText of the first node specified by given selector "%s"',
             $this->expectedInnerText,
             $this->selector
         );

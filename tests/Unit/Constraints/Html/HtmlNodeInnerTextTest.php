@@ -73,7 +73,7 @@ EOL;
     {
         $sut = new HtmlNodeInnerText('h2', 'As You Like It');
         $this->assertSame(
-            '"As You Like It" is the innerText of the first node specified with given selector "h2"',
+            '"As You Like It" is the innerText of the first node specified by given selector "h2"',
             $sut->toString()
         );
     }
@@ -115,7 +115,7 @@ EOL;
                 'h1',
                 'As You Like It',
                 <<<EOL
-Failed asserting that "As You Like It" is the innerText of the first node specified with given selector "h1".
+Failed asserting that "As You Like It" is the innerText of the first node specified by given selector "h1".
 No node is specified by given selector "h1".
 
 EOL,
@@ -124,7 +124,7 @@ EOL,
                 'h2',
                 'As You Hate It',
                 <<<EOL
-Failed asserting that "As You Hate It" is the innerText of the first node specified with given selector "h2".
+Failed asserting that "As You Hate It" is the innerText of the first node specified by given selector "h2".
 
 EOL,
             ],
