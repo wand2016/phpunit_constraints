@@ -22,16 +22,19 @@ trait HtmlAssertions
      * @param string $selector
      * @param int $expectedCount
      * @param mixed $html
+     * @param string $message=''
      * @return void
      */
     public function assertHtmlNodeCount(
         string $selector,
         int $expectedCount,
-        $html
+        $html,
+        string $message = ''
     ): void {
         PHPUnit::assertThat(
             $html,
-            self::htmlNodeCount($selector, $expectedCount)
+            self::htmlNodeCount($selector, $expectedCount),
+            $message
         );
     }
 
@@ -41,18 +44,21 @@ trait HtmlAssertions
      * @param string $selector
      * @param int $expectedCount
      * @param mixed $html
+     * @param string $message=''
      * @return void
      */
     public function assertHtmlNodeNotCount(
         string $selector,
         int $expectedCount,
-        $html
+        $html,
+        string $message = ''
     ): void {
         PHPUnit::assertThat(
             $html,
             PHPUnit::logicalNot(
                 self::htmlNodeCount($selector, $expectedCount)
-            )
+            ),
+            $message
         );
     }
 
@@ -77,16 +83,19 @@ trait HtmlAssertions
      * @param string $selector
      * @param string  $expectedInnerText
      * @param mixed $html
+     * @param string $message=''
      * @return void
      */
     public function assertHtmlNodeInnerText(
         string $selector,
         string $expectedInnerText,
-        $html
+        $html,
+        string $message = ''
     ): void {
         PHPUnit::assertThat(
             $html,
-            self::htmlNodeInnerText($selector, $expectedInnerText)
+            self::htmlNodeInnerText($selector, $expectedInnerText),
+            $message
         );
     }
 
@@ -96,18 +105,21 @@ trait HtmlAssertions
      * @param string $selector
      * @param string  $expectedInnerText
      * @param mixed $html
+     * @param string $message=''
      * @return void
      */
     public function assertHtmlNodeNotInnerText(
         string $selector,
         string $expectedInnerText,
-        $html
+        $html,
+        string $message = ''
     ): void {
         PHPUnit::assertThat(
             $html,
             PHPUnit::logicalNot(
                 self::htmlNodeInnerText($selector, $expectedInnerText)
-            )
+            ),
+            $message
         );
     }
 
@@ -132,16 +144,19 @@ trait HtmlAssertions
      * @param string $selector
      * @param string $expectedHref
      * @param mixed $html
+     * @param string $message=''
      * @return void
      */
     public function assertHtmlNodeLinksTo(
         string $selector,
         string $expectedHref,
-        $html
+        $html,
+        string $message = ''
     ): void {
         PHPUnit::assertThat(
             $html,
-            self::htmlNodeLinksTo($selector, $expectedHref)
+            self::htmlNodeLinksTo($selector, $expectedHref),
+            $message
         );
     }
 
@@ -151,18 +166,21 @@ trait HtmlAssertions
      * @param string $selector
      * @param string $expectedHref
      * @param mixed $html
+     * @param string $message=''
      * @return void
      */
     public function assertHtmlNodeNotLinksTo(
         string $selector,
         string $expectedHref,
-        $html
+        $html,
+        string $message = ''
     ): void {
         PHPUnit::assertThat(
             $html,
             PHPUnit::logicalNot(
                 self::htmlNodeLinksTo($selector, $expectedHref)
-            )
+            ),
+            $message
         );
     }
 
@@ -185,15 +203,18 @@ trait HtmlAssertions
      * Asserts that the node specified by given selector exists.
      * @param string $selector
      * @param mixed $html
+     * @param string $message=''
      * @return void
      */
     public function assertHtmlNodeExists(
         string $selector,
-        $html
+        $html,
+        string $message = ''
     ): void {
         PHPUnit::assertThat(
             $html,
-            self::htmlNodeExists($selector)
+            self::htmlNodeExists($selector),
+            $message
         );
     }
 
@@ -201,17 +222,20 @@ trait HtmlAssertions
      * Asserts that the node specified by given selector DOESN'T exist.
      * @param string $selector
      * @param mixed $html
+     * @param string $message=''
      * @return void
      */
     public function assertHtmlNodeNotExists(
         string $selector,
-        $html
+        $html,
+        string $message = ''
     ): void {
         PHPUnit::assertThat(
             $html,
             PHPUnit::logicalNot(
                 self::htmlNodeExists($selector)
-            )
+            ),
+            $message
         );
     }
 
@@ -230,15 +254,18 @@ trait HtmlAssertions
      * Asserts that there is <a> element whose href attribute is expected value.
      * @param string $expectedHref
      * @param mixed $html
+     * @param string $message=''
      * @return void
      */
     public function assertHtmlLinksTo(
         string $expectedHref,
-        $html
+        $html,
+        string $message = ''
     ): void {
         PHPUnit::assertThat(
             $html,
-            self::htmlLinksTo($expectedHref)
+            self::htmlLinksTo($expectedHref),
+            $message
         );
     }
 
@@ -246,17 +273,20 @@ trait HtmlAssertions
      * Asserts that there is <a> element whose href attribute is expected value.
      * @param string $expectedHref
      * @param mixed $html
+     * @param string $message=''
      * @return void
      */
     public function assertHtmlNotLinksTo(
         string $expectedHref,
-        $html
+        $html,
+        string $message = ''
     ): void {
         PHPUnit::assertThat(
             $html,
             PHPUnit::logicalNot(
                 self::htmlLinksTo($expectedHref)
-            )
+            ),
+            $message
         );
     }
 
