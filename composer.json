@@ -23,6 +23,9 @@
         ],
         "test": [
             "@php ./vendor/bin/phpunit tests"
+        ],
+        "test:coverage": [
+            "php -dpcov.enabled=1 -dpcov.directory=. -dpcov.exclude='~vendor~' ./vendor/bin/phpunit --coverage-text tests"
         ]
     },
     "autoload": {
