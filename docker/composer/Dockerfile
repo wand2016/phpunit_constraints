@@ -9,7 +9,7 @@ RUN composer global require hirak/prestissimo
 # ----------------------------------------
 # install build-dependencies
 # ----------------------------------------
-RUN apk add --update-cache --no-cache --virtual=.build-dependencies ${PHPIZE_DEPS} tzdata
+RUN apk add --update-cache --no-cache --virtual=.build-dependencies ${PHPIZE_DEPS}
 
 # ----------------------------------------
 # install pcov for coverage reporting
