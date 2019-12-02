@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@master
 
     - name: Validate composer.json and composer.lock
       run: composer validate
@@ -20,4 +20,10 @@ jobs:
       run: composer run-script lint
 
     - name: Run test suite
-      run: composer run-script test
+      run: composer run-script test:coverage
+
+    - name: coverage-reporting
+      uses: actions/upload-artifact@master
+      with:
+        name: coverage
+        path: .coverage
